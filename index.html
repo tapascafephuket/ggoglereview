@@ -1,10 +1,167 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Test GitHub Pages</title>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            width: 100vw;
+            background-color: #3C2115;
+            color: #F6D9A8;
+            position: relative;
+            overflow: hidden;
+        }
+        .logo {
+            display: block;
+            position: absolute;
+            bottom: 20px;
+            width: 15vw;
+        }
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+        .stars {
+            font-size: 40px;
+            cursor: pointer;
+        }
+        .star {
+            color: #F6D9A8;
+            transition: color 0.3s;
+        }
+        .star.selected {
+            color: #E94724;
+        }
+        .star:hover,
+        .star.hovered {
+            color: #C4321A;
+        }
+        .hidden {
+            display: none;
+        }
+        .feedback-form {
+            margin-top: 20px;
+            width: 50vw;
+        }
+        .feedback-form textarea {
+            width: 100%;
+            height: 20vh;
+            resize: none;
+            font-size: 16px;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            box-sizing: border-box;
+        }
+        .feedback-form button {
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            background-color: #E94724;
+            color: #fff;
+            margin-top: 10px;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .feedback-form button:hover {
+            background-color: #C4321A;
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello, GitHub Pages is working! 🎉</h1>
+    <div class="content">
+        <h2 id="feedbackHeader">How was your experience with us?</h2>
+        <p id="subHeader" class="hidden">Your feedback helps us improve. Let us know how we can make your experience even better!</p>
+        <div id="stars" class="stars">
+            <span class="star" data-value="1">★</span>
+            <span class="star" data-value="2">★</span>
+            <span class="star" data-value="3">★</span>
+            <span class="star" data-value="4">★</span>
+            <span class="star" data-value="5">★</span>
+        </div>
+        
+        <div id="feedbackForm" class="hidden feedback-form">
+            <textarea id="feedbackText" placeholder="Tell us more..."></textarea>
+            <button id="backButton">Back</button>
+            <button id="sendFeedback">Send Feedback</button>
+        </div>
+        
+        <p id="thankYouMsg" class="hidden">Thank you! Your feedback has been submitted.</p>
+    </div>
+    <img src="https://drive.google.com/thumbnail?id=1kp_s-GvRNhREMoe3hOntVNG_rrjVLcXi" alt="Logo" class="logo">
+    
+    <script>
+        let selectedStars = 0;
+        const stars = document.querySelectorAll('.star');
+        const feedbackForm = document.getElementById('feedbackForm');
+        const sendFeedbackBtn = document.getElementById('sendFeedback');
+        const backButton = document.getElementById('backButton');
+        const thankYouMsg = document.getElementById('thankYouMsg');
+        const feedbackHeader = document.getElementById('feedbackHeader');
+        const subHeader = document.getElementById('subHeader');
+
+        stars.forEach((star, index) => {
+            star.addEventListener('mouseover', function() {
+                stars.forEach((s, i) => {
+                    s.classList.toggle('hovered', i <= index);
+                });
+            });
+            star.addEventListener('mouseout', function() {
+                stars.forEach(s => s.classList.remove('hovered'));
+            });
+            star.addEventListener('click', function() {
+                selectedStars = parseInt(this.getAttribute('data-value'));
+                stars.forEach((s, i) => {
+                    s.classList.remove('selected');
+                    if (i < selectedStars) {
+                        s.classList.add('selected');
+                    }
+                });
+                if (selectedStars <= 2) {
+                    document.getElementById('stars').classList.add('hidden');
+                    feedbackForm.classList.remove('hidden');
+                    feedbackHeader.textContent = "Help us improve";
+                    subHeader.classList.remove('hidden');
+                } else {
+                    window.location.href = 'https://g.page/r/CYI2SWIeCoYxEBM/review';
+                }
+            });
+        });
+
+        sendFeedbackBtn.addEventListener('click', function() {
+            const mailtoLink = `mailto:tapascafephuket@gmail.com?subject=New ${selectedStars} Stars Review&body=${encodeURIComponent(document.getElementById('feedbackText').value)}`;
+            window.location.href = mailtoLink;
+            feedbackForm.classList.add('hidden');
+            thankYouMsg.classList.remove('hidden');
+        });
+        
+        backButton.addEventListener('click', function() {
+            feedbackForm.classList.add('hidden');
+            document.getElementById('stars').classList.remove('hidden');
+            feedbackHeader.textContent = "How was your experience with us?";
+            subHeader.classList.add('hidden');
+        });
+    </script>
 </body>
 </html>
