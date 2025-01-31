@@ -25,12 +25,13 @@
             color: #F6D9A8;
             position: relative;
             overflow: hidden;
+            padding: 20px;
         }
         .logo {
             display: block;
             position: absolute;
             bottom: 20px;
-            width: 15vw;
+            width: 20vw;
         }
         .content {
             display: flex;
@@ -40,72 +41,82 @@
             width: 100%;
         }
         .stars {
-            font-size: 40px;
+            font-size: 8vw;
             cursor: pointer;
         }
         .star {
             color: #F6D9A8;
-            transition: color 0.3s;
         }
-        .star:hover,
-        .star.hovered {
-            color: #C4321A;
+        .hovered {
+            color: #FFD700;
         }
         .hidden {
             display: none;
         }
         .feedback-form {
             margin-top: 20px;
-            width: 50vw;
-        }
-        .feedback-form textarea {
             width: 100%;
-            height: 20vh;
-            resize: none;
-            font-size: 16px;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
             padding: 10px;
+            border: 2px solid #F6D9A8;
             border-radius: 5px;
-            border: none;
-            box-sizing: border-box;
+            background-color: #3C2115;
+            color: #F6D9A8;
+            font-family: 'Montserrat', sans-serif;
+            resize: none;
         }
-        .feedback-form button {
+        button {
             width: 100%;
-            padding: 15px;
-            font-size: 16px;
-            font-weight: bold;
-            border: none;
-            cursor: pointer;
-            background-color: #E94724;
-            color: #fff;
+            padding: 10px;
             margin-top: 10px;
+            border: none;
             border-radius: 5px;
-            box-sizing: border-box;
+            background-color: #F6D9A8;
+            color: #3C2115;
+            font-family: 'Montserrat', sans-serif;
+            cursor: pointer;
         }
-        .feedback-form button:hover {
-            background-color: #C4321A;
+        button:hover {
+            background-color: #FFD700;
+        }
+        .loading {
+            margin-top: 10px;
+        }
+        h2 {
+            font-weight: bold;
+        }
+        small {
+            font-weight: normal;
+            display: block;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
     <div class="content">
-        <h2 id="feedbackHeader">How was your experience with us?</h2>
-        <div id="stars" class="stars">
-            <span class="star" data-value="1">★</span>
-            <span class="star" data-value="2">★</span>
-            <span class="star" data-value="3">★</span>
-            <span class="star" data-value="4">★</span>
-            <span class="star" data-value="5">★</span>
+        <h2 id="feedbackHeader" style="margin-bottom: 20px;">How was your experience with us?</h2>
+        <div id="stars" class="stars" aria-label="Rate your experience">
+            <span class="star" data-value="1" aria-label="1 star">★</span>
+            <span class="star" data-value="2" aria-label="2 stars">★</span>
+            <span class="star" data-value="3" aria-label="3 stars">★</span>
+            <span class="star" data-value="4" aria-label="4 stars">★</span>
+            <span class="star" data-value="5" aria-label="5 stars">★</span>
         </div>
         
-        <div id="feedbackForm" class="hidden feedback-form">
-            <textarea id="feedbackText" placeholder="Tell us more..."></textarea>
-            <button id="backButton">Back</button>
-            <button id="sendFeedback">Send Feedback</button>
-        </div>
+        <form id="feedbackForm" class="hidden feedback-form">
+            <input type="hidden" id="selectedStars" name="selectedStars">
+            <textarea id="feedbackText" name="feedback" placeholder="Please provide additional details..."></textarea>
+            <button type="button" id="backButton">Back</button>
+            <button type="submit" id="sendFeedback">Send Feedback</button>
+        </form>
         
-        <h2 id="thankYouMsg" class="hidden">Thank you!<br>Your feedback has been submitted.</h2>
+        <div id="loading" class="loading hidden">Sending feedback...</div>
+        <h2 id="thankYouMsg" class="hidden">Thank you!<br><small>Your feedback has been submitted.</small></h2>
     </div>
-    <img src="https://drive.google.com/thumbnail?id=12Bz0NVtrP9SHQLb__0335UjIlJK5ylsM" alt="Logo" class="logo">
+    <img src="https://drive.google.com/thumbnail?id=1qsF2XspEgi2dJh28GQCg9qQD0nHnviVH" alt="Logo" class="logo">
     
     <script>
         let selectedStars = 0;
@@ -115,6 +126,8 @@
         const backButton = document.getElementById('backButton');
         const thankYouMsg = document.getElementById('thankYouMsg');
         const feedbackHeader = document.getElementById('feedbackHeader');
+        const loadingIndicator = document.getElementById('loading');
+        const selectedStarsInput = document.getElementById('selectedStars');
 
         stars.forEach((star, index) => {
             star.addEventListener('mouseover', function() {
@@ -127,39 +140,42 @@
             });
             star.addEventListener('click', function() {
                 selectedStars = parseInt(this.getAttribute('data-value'));
+                selectedStarsInput.value = selectedStars;
                 if (selectedStars <= 2) {
                     document.getElementById('stars').classList.add('hidden');
                     feedbackForm.classList.remove('hidden');
-                    feedbackHeader.textContent = "Help us improve";
+                    feedbackHeader.innerHTML = "Help us improve<br><small style='font-weight: normal; display: block; margin-top: 10px;'>We appreciate your feedback. Please let us know how we can enhance our services.</small>";
                 } else {
                     window.location.href = 'https://g.page/r/CYI2SWIeCoYxEBM/review';
                 }
             });
         });
 
-        sendFeedbackBtn.addEventListener('click', function() {
+        feedbackForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            feedbackForm.classList.add('hidden');
+            loadingIndicator.classList.remove('hidden');
+            const formData = new FormData(feedbackForm);
             fetch('https://formspree.io/f/mrbekejo', {
                 method: 'POST',
+                body: formData,
                 headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    stars: selectedStars,
-                    feedback: document.getElementById('feedbackText').value
-                })
+                    'Accept': 'application/json'
+                }
             }).then(response => {
-                feedbackForm.classList.add('hidden');
+                loadingIndicator.classList.add('hidden');
                 feedbackHeader.classList.add('hidden');
                 thankYouMsg.classList.remove('hidden');
             }).catch(error => {
-                console.error('Error:', error);
+                loadingIndicator.classList.add('hidden');
+                alert('There was an error submitting your feedback. Please try again later.');
             });
         });
-        
+
         backButton.addEventListener('click', function() {
             feedbackForm.classList.add('hidden');
             document.getElementById('stars').classList.remove('hidden');
-            feedbackHeader.textContent = "How was your experience with us?";
+            feedbackHeader.innerHTML = "How was your experience with us?";
         });
     </script>
 </body>
