@@ -47,9 +47,6 @@
             color: #F6D9A8;
             transition: color 0.3s;
         }
-        .star.selected {
-            color: #E94724;
-        }
         .star:hover,
         .star.hovered {
             color: #C4321A;
@@ -132,12 +129,6 @@
             });
             star.addEventListener('click', function() {
                 selectedStars = parseInt(this.getAttribute('data-value'));
-                stars.forEach((s, i) => {
-                    s.classList.remove('selected');
-                    if (i < selectedStars) {
-                        s.classList.add('selected');
-                    }
-                });
                 if (selectedStars <= 2) {
                     document.getElementById('stars').classList.add('hidden');
                     feedbackForm.classList.remove('hidden');
