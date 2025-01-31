@@ -89,7 +89,6 @@
 <body>
     <div class="content">
         <h2 id="feedbackHeader">How was your experience with us?</h2>
-        <p id="subHeader" class="hidden">Your feedback helps us improve. Let us know how we can make your experience even better!</p>
         <div id="stars" class="stars">
             <span class="star" data-value="1">★</span>
             <span class="star" data-value="2">★</span>
@@ -104,7 +103,7 @@
             <button id="sendFeedback">Send Feedback</button>
         </div>
         
-        <p id="thankYouMsg" class="hidden">Thank you! Your feedback has been submitted. And that's all for this page.</p>
+        <h2 id="thankYouMsg" class="hidden">Thank you!<br>Your feedback has been submitted.</h2>
     </div>
     <img src="https://drive.google.com/thumbnail?id=12Bz0NVtrP9SHQLb__0335UjIlJK5ylsM" alt="Logo" class="logo">
     
@@ -116,7 +115,6 @@
         const backButton = document.getElementById('backButton');
         const thankYouMsg = document.getElementById('thankYouMsg');
         const feedbackHeader = document.getElementById('feedbackHeader');
-        const subHeader = document.getElementById('subHeader');
 
         stars.forEach((star, index) => {
             star.addEventListener('mouseover', function() {
@@ -133,7 +131,6 @@
                     document.getElementById('stars').classList.add('hidden');
                     feedbackForm.classList.remove('hidden');
                     feedbackHeader.textContent = "Help us improve";
-                    subHeader.classList.remove('hidden');
                 } else {
                     window.location.href = 'https://g.page/r/CYI2SWIeCoYxEBM/review';
                 }
@@ -152,6 +149,7 @@
                 })
             }).then(response => {
                 feedbackForm.classList.add('hidden');
+                feedbackHeader.classList.add('hidden');
                 thankYouMsg.classList.remove('hidden');
             }).catch(error => {
                 console.error('Error:', error);
@@ -162,7 +160,6 @@
             feedbackForm.classList.add('hidden');
             document.getElementById('stars').classList.remove('hidden');
             feedbackHeader.textContent = "How was your experience with us?";
-            subHeader.classList.add('hidden');
         });
     </script>
 </body>
