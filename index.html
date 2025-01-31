@@ -4,96 +4,119 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Feedback</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+    
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body {
+        font-family: 'Montserrat', sans-serif;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        width: 100vw;
+        background-color: #3C2115;
+        color: #F6D9A8;
+        position: relative;
+        overflow: hidden;
+        padding: 20px;
+    }
+    .logo {
+        display: block;
+        position: absolute;
+        bottom: 20px;
+        width: 20vw;
+    }
+    .content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+    .stars {
+        font-size: 8vw;
+        cursor: pointer;
+    }
+    .star {
+        color: #F6D9A8;
+    }
+    .hovered {
+        color: #FFD700;
+    }
+    .hidden {
+        display: none;
+    }
+    .feedback-form {
+        margin-top: 20px;
+        width: 100%;
+    }
+    textarea {
+        width: 100%;
+        height: 100px;
+        padding: 10px;
+        border: 2px solid #F6D9A8;
+        border-radius: 5px;
+        background-color: #3C2115;
+        color: #F6D9A8;
+        font-family: 'Montserrat', sans-serif;
+        resize: none;
+    }
+    button {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: #F6D9A8;
+        color: #3C2115;
+        font-family: 'Montserrat', sans-serif;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #FFD700;
+    }
+    .loading {
+        margin-top: 10px;
+    }
+    h2 {
+        font-weight: bold;
+    }
+    small {
+        font-weight: normal;
+        display: block;
+        margin-top: 10px;
+    }
+
+    /* Styles for laptop and PC devices */
+    @media (min-width: 768px) {
         body {
-            font-family: 'Montserrat', sans-serif;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            width: 100vw;
-            background-color: #3C2115;
-            color: #F6D9A8;
-            position: relative;
-            overflow: hidden;
-            padding: 20px;
+            padding: 40px;
         }
         .logo {
-            display: block;
-            position: absolute;
-            bottom: 20px;
-            width: 20vw;
-        }
-        .content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
+            width: 10vw;
         }
         .stars {
-            font-size: 8vw;
-            cursor: pointer;
-        }
-        .star {
-            color: #F6D9A8;
-        }
-        .hovered {
-            color: #FFD700;
-        }
-        .hidden {
-            display: none;
-        }
-        .feedback-form {
-            margin-top: 20px;
-            width: 100%;
+            font-size: 4vw;
         }
         textarea {
-            width: 100%;
-            height: 100px;
-            padding: 10px;
-            border: 2px solid #F6D9A8;
-            border-radius: 5px;
-            background-color: #3C2115;
-            color: #F6D9A8;
-            font-family: 'Montserrat', sans-serif;
-            resize: none;
+            height: 150px;
         }
         button {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-            border: none;
-            border-radius: 5px;
-            background-color: #F6D9A8;
-            color: #3C2115;
-            font-family: 'Montserrat', sans-serif;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #FFD700;
+            padding: 15px;
+            margin-top: 15px;
         }
         .loading {
-            margin-top: 10px;
+            margin-top: 15px;
         }
-        h2 {
-            font-weight: bold;
-        }
-        small {
-            font-weight: normal;
-            display: block;
-            margin-top: 10px;
-        }
-    </style>
+    }
+</style>
 </head>
 <body>
     <div class="content">
