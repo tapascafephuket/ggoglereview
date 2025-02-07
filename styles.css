@@ -9,7 +9,7 @@
 body {
     font-family: 'Montserrat', sans-serif;
     text-align: center;
-    background: url('src/bg.png') no-repeat center center/cover;
+    background: url('src/bg_view.png') no-repeat center center/cover;
     color: #F6D9A8;
     height: 100vh;
     display: flex;
@@ -26,7 +26,7 @@ body {
     opacity: 0.2;
     pointer-events: none; /* Prevents it from blocking clicks */
     z-index: -1;
-    filter: brightness(0.3) blur(2px);
+    filter: brightness(1) blur(0.2px);
 }
 
 .header {
@@ -45,7 +45,7 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height:40vh; /* Adjust how far the gradient extends */
+    height:60vh; /* Adjust how far the gradient extends */
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), transparent); /* Adjust opacity */
     pointer-events: none;
     z-index: -1;
@@ -143,6 +143,7 @@ body {
     height: 15vh;
     pointer-events: none; /* Prevent interaction */
     user-select: none; /* Prevent selection */
+    z-index: 0;
 }
 
 .headline-1 {
