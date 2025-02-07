@@ -1,0 +1,27 @@
+<div class="review-box" id="reviewBox">
+  <i class="fa fa-times close-btn" onclick="toggleReview()"></i>
+  <div id="ratingSection">
+    <h1>How was your experience?</h1>
+    <div class="stars">
+        <i class="fa fa-star" onclick="rate(1)" onmouseover="highlightStars(1)" onmouseout="resetStars()"></i>
+        <i class="fa fa-star" onclick="rate(2)" onmouseover="highlightStars(2)" onmouseout="resetStars()"></i>
+        <i class="fa fa-star" onclick="rate(3)" onmouseover="highlightStars(3)" onmouseout="resetStars()"></i>
+        <i class="fa fa-star" onclick="rate(4)" onmouseover="highlightStars(4)" onmouseout="resetStars()"></i>
+        <i class="fa fa-star" onclick="rate(5)" onmouseover="highlightStars(5)" onmouseout="resetStars()"></i>
+    </div>
+</div>
+
+<!-- Feedback Form -->
+<form id="feedbackForm" class="hidden feedback-form" action="https://formspree.io/f/mrbekejo" method="POST">
+  <h1>Your feedback matters!</h1>
+  <textarea id="feedbackText" name="feedback" placeholder="Please provide additional details..."></textarea>
+  <button type="button" id="backButton">Back</button>
+  <button type="submit" id="sendFeedback">Send Feedback</button>
+</form>
+
+  <!-- Loading Message (Hidden Initially) -->
+  <h1 id="loading" class="hidden">Sending feedback...</h1>
+
+  <!-- Thank You Message (Hidden Initially) -->
+  <h1 id="thankYouMsg" class="hidden">Thank you!<br><small>Your feedback has been submitted.</small></h1>
+</div>
