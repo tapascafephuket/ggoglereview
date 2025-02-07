@@ -1,0 +1,289 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    background: url('/src/bg.png') no-repeat center center/cover;
+    color: #F6D9A8;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.bg-overlay {
+    position: fixed;
+    bottom: 8%;
+    width: 140vw;
+    opacity: 0.2;
+    pointer-events: none; /* Prevents it from blocking clicks */
+    z-index: -1;
+    filter: brightness(0.3) blur(2px);
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 2vh;
+}
+
+.header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height:40vh; /* Adjust how far the gradient extends */
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), transparent); /* Adjust opacity */
+    pointer-events: none;
+    z-index: -1;
+}
+
+.logo {
+    width: 30vw;
+    cursor: pointer;
+}
+
+.menu {
+    display: flex;
+    gap: 3%;
+    margin-top: 2vh;
+    justify-content: center;
+    width: 90vw;
+    flex-wrap: nowrap;
+}
+.menu button {
+    border: 2px solid #FF3C00;
+    background: transparent;
+    color: #FF3C00;
+    font-family: 'Montserrat', sans-serif;
+    border-radius: 50px;
+    padding: 0.8vh 0vw;
+    font-size: clamp(1.8vw, 2.2vw, 2.5vw);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 20%;
+    max-width: 25%;
+    white-space: nowrap;
+}
+.menu button:hover {
+    background: #FF3C00;
+    color: #F6D9A8;
+}
+
+.footer::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 12vh; /* Adjust how far the gradient extends */
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.3), transparent); /* Adjust opacity */
+    pointer-events: none;
+    z-index: -1; /* Place it behind the footer content */
+}
+
+.footer {
+    position: fixed;
+    width: 100vw;
+    bottom: 0;
+    display: flex;
+    justify-content: center; /* Ensures horizontal centering */
+    align-items: center; /* Ensures vertical centering */
+    gap: 3vw;
+    padding: 2vh 0; /* Adds padding for spacing */
+    z-index: 10;
+}
+
+.footer a {
+    text-decoration: none;
+    color: #FF3C00;
+    border: 0.2vh solid #FF3C00;
+    padding: 1.5vh;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    display: flex; /* Ensures content inside stays centered */
+    align-items: center;
+    justify-content: center;
+    width: 5vh; /* Adjust the width */
+    height: 5vh; /* Adjust the height */
+}
+
+.footer a i {
+    font-size: 2vh; /* Adjust the icon size */
+}
+
+.footer a:hover {
+    background: #FF3C00;
+    color: #F6D9A8;
+}
+
+.headlines-container {
+    width: 90vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20vh; /* Space below the menu */
+}
+
+.headlines-container img {
+    height: 15vh;
+    pointer-events: none; /* Prevent interaction */
+    user-select: none; /* Prevent selection */
+}
+
+.headline-1 {
+    align-self: flex-start; /* Aligns to the left */
+}
+
+.headline-2 {
+    align-self: flex-end; /* Aligns to the right */
+    margin-top: 3vh; /* Space between the two images */
+}
+
+#reviewContainer {
+    position: fixed;
+    left: 50%;
+    bottom: -100%; /* Start hidden */
+    transform: translateX(-50%);
+    width: 80vw;
+    max-width: 80vw;
+    transition: bottom 0.5s ease-in-out, visibility 0.5s ease-in-out;
+    z-index: 999;
+    visibility: hidden; /* Keeps it hidden initially */
+    box-shadow: #1A0E08 1vw 1vw 5vw;
+}
+
+.review-box {
+    background: #f9edd9;
+    color: #1A0E08;
+    border-radius: 20px;
+    padding: 20px;
+    width: 100%;
+    min-height: 40vh;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: flex;  
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.review-box h1 {
+    font-size: 8vw;
+    font-weight: bold;
+    color: #1A0E08;
+    margin-bottom: 3vh;
+}
+
+.close-btn {
+    position: absolute;
+    top: 2vh;
+    right: 2vh;
+    font-size: 8vw !important; /* Forces size to stay 10vw */
+    color: #e2d7c4;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out;
+}
+
+.close-btn:hover {
+    color: #FF3C00; /* Only change color on hover */
+    font-size: 8vw !important; /* Ensure no size change */
+}
+
+.stars {
+    display: flex;
+    justify-content: center;
+    gap: 1vw;
+    font-size: 12vw;
+    cursor: pointer;
+}
+
+.stars i {
+    transition: color 0.3s ease-in-out;
+}
+
+.stars i.active,
+.stars i.hovered {
+    color: #FFCC00;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.feedback-form {
+    margin-top: 20px;
+    width: 100%;
+}
+
+textarea {
+    width: 100%;
+    height: 10vh;
+    padding: 2vw;
+    border: 2px solid #1A0E08;
+    border-radius: 1vw;
+    background-color: #fffaf1;
+    color: #1A0E08;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3vw;
+    resize: none;
+    margin-bottom: 1vh;
+}
+
+button {
+    width: 100%;
+    padding: 1vh;
+    margin-top: 1vh;
+    border: none;
+    border-radius: 10vw;
+    background-color: #1A0E08;
+    color: #F6D9A8;
+    cursor: pointer;
+    font-size: 3vw;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+}
+
+button:hover {
+    background-color: #3C2115;
+}
+
+.loading {
+    margin-top: 10px;
+}
+
+/* Wrap Heading & Stars in a Container */
+#ratingSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2vh; /* Space between heading & stars */
+}
+
+/* Hide Rating Section When Form is Visible */
+.hidden #ratingSection {
+    display: none;
+}
+
+/* Keep Review Box Content Aligned */
+.review-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Centers content */
+    text-align: center;
+}
